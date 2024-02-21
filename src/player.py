@@ -120,7 +120,7 @@ class UserWebcamPlayer:
         prediction = model.predict(image_expand)
         print(prediction)
         emotion = prediction[0].argmax()
-        return emotion #1
+        return emotion.item() #1
         pass
     
     def get_move(self, board_state):
