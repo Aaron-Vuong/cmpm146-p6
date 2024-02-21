@@ -110,13 +110,11 @@ class UserWebcamPlayer:
         # The classification value should be 0, 1, or 2 for neutral, happy or surprise respectively
 
         # return an integer (0, 1 or 2), otherwise the code will throw an error
-        model = keras.models.load_model("results\\basic_model_13_epochs_timestamp_1708409715.keras")
+        model = keras.models.load_model(r"results\basic_model_13_epochs_timestamp_1708409715.keras")
         plt.imshow(img, cmap='gray', vmin=0, vmax=255)
         plt.show()
-        image = np.array(Image.fromarray(img).resize(image_size))/255
-        image_expand = image[np.newaxis, :, :, np.newaxis]#I need a 4th value?
-        image_expand = np.tile(image_expand, 3)
-        print(image_expand.shape)
+        image = np.resize(img, (image_size[0], image_size[1], 3)).reshape(150,150,3)
+        image_expand = image[np.newaxis, ...]#I need a 4th value?
         prediction = model.predict(image_expand)
         print(prediction)
         emotion = prediction[0].argmax()
