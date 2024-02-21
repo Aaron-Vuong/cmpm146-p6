@@ -114,10 +114,12 @@ class UserWebcamPlayer:
         plt.imshow(img, cmap='gray', vmin=0, vmax=255)
         plt.show()
         image = np.array(Image.fromarray(img).resize(image_size))/255
-        image_expand = image[np.newaxis, ...] #I need a 4th value?
+        image_expand = image[np.newaxis, :, :, np.newaxis]#I need a 4th value?
+        image_expand = np.tile(image_expand, 3)
         print(image_expand.shape)
         prediction = model.predict(image_expand)
         emotion = prediction[0].argmax()
+        print(emotion)
         return emotion #1
         pass
     
