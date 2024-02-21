@@ -114,7 +114,7 @@ class UserWebcamPlayer:
         plt.imshow(img, cmap='gray', vmin=0, vmax=255)
         plt.show()
         image = np.resize(img, (image_size[0], image_size[1], 3)).reshape(150,150,3)
-        image_expand = image[np.newaxis, ...]#I need a 4th value?
+        image_expand = image[np.newaxis, ...]
         prediction = model.predict(image_expand)
         print(prediction)
         emotion = prediction[0].argmax()
