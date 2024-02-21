@@ -118,8 +118,8 @@ class UserWebcamPlayer:
         image_expand = np.tile(image_expand, 3)
         print(image_expand.shape)
         prediction = model.predict(image_expand)
+        print(prediction)
         emotion = prediction[0].argmax()
-        print(emotion)
         return emotion #1
         pass
     
