@@ -5,6 +5,7 @@ from models.model import Model
 from config import image_size
 import matplotlib.pyplot as plt
 import time
+import tensorflow as tf
 
 input_shape = (image_size[0], image_size[1], 3)
 categories_count = 3
@@ -45,7 +46,7 @@ if __name__ == "__main__":
     # plot_history(history)
     # 
     # Your code should change the number of epochs
-    epochs = 1
+    epochs = 13
     print('* Data preprocessing')
     train_dataset, validation_dataset, test_dataset = get_datasets()
     name = 'basic_model'

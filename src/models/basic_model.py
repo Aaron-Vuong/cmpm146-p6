@@ -1,4 +1,5 @@
 from models.model import Model
+import tensorflow.keras as keras
 from tensorflow.keras import Sequential, layers
 from tensorflow.keras.layers.experimental.preprocessing import Rescaling
 from tensorflow.keras.optimizers import RMSprop, Adam

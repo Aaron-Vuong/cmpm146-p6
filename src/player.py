@@ -2,6 +2,8 @@ from config import BOARD_SIZE, categories, image_size
 from tensorflow.keras import models
 import numpy as np
 import tensorflow as tf
+from tensorflow import keras 
+import matplotlib.pyplot as plt
 
 class TicTacToePlayer:
     def get_move(self, board_state):
@@ -107,7 +109,17 @@ class UserWebcamPlayer:
         # The classification value should be 0, 1, or 2 for neutral, happy or surprise respectively
 
         # return an integer (0, 1 or 2), otherwise the code will throw an error
-        return 1
+        model = keras.models.load_model("results\\basic_model_13_epochs_timestamp_1708409715.keras")
+        image = img.resize(image_size)
+        print(type(image))
+        print(image.shape)
+        image_expand = image[np.newaxis, ...]
+        print(image_expand.shape)
+        prediction = model.predict(image_expand.shape)
+        emotion = prediction[0].argmax()
+        plt.imshow(img, cmap='gray', vmin=0, vmax=255)
+        plt.show()
+        return emotion #1
         pass
     
     def get_move(self, board_state):
