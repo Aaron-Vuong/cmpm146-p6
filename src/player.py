@@ -1,6 +1,7 @@
 from config import BOARD_SIZE, categories, image_size
 from tensorflow.keras import models
 import numpy as np
+from PIL import Image
 import tensorflow as tf
 from tensorflow import keras 
 import matplotlib.pyplot as plt
@@ -110,15 +111,13 @@ class UserWebcamPlayer:
 
         # return an integer (0, 1 or 2), otherwise the code will throw an error
         model = keras.models.load_model("results\\basic_model_13_epochs_timestamp_1708409715.keras")
-        image = img.resize(image_size)
-        print(type(image))
-        print(image.shape)
-        image_expand = image[np.newaxis, ...]
-        print(image_expand.shape)
-        prediction = model.predict(image_expand.shape)
-        emotion = prediction[0].argmax()
         plt.imshow(img, cmap='gray', vmin=0, vmax=255)
         plt.show()
+        image = np.array(Image.fromarray(img).resize(image_size))/255
+        image_expand = image[np.newaxis, ...] #I need a 4th value?
+        print(image_expand.shape)
+        prediction = model.predict(image_expand)
+        emotion = prediction[0].argmax()
         return emotion #1
         pass
     
