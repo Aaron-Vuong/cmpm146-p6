@@ -20,12 +20,13 @@ class TransferedModel(Model):
         model.layers.pop()
         self.model = Sequential(
             [
-                layers.MaxPooling2D()(model.layers[-1].output)
+                layers.MaxPooling2D()(model.layers[-1].output),
+                layers.Dense(2, activation="relu", input_shape=input_shape),
+                layers.Dense(1, activation="relu", input_shape=input_shape),
+                layers.Dense(categories_count, activation="softmax", name="output")
             ]
         )
-
-
-        
+        self.model.build(input_shape)
         pass
     
     def _compile_model(self):

@@ -19,13 +19,17 @@ class RandomModel(Model):
         print(f"SHAPE: {input_shape}")
         print(f"CATEGORIES: {categories_count}")
         model = keras.models.load_model(r"results\yeah")
+        model.randomize_layers() #Like this?
         model.layers.pop()
         self.model = Sequential(
             [
-                layers.MaxPooling2D()(model.layers[-1].output)
+                layers.MaxPooling2D()(model.layers[-1].output),
+                layers.Dense(2, activation="relu", input_shape=input_shape),
+                layers.Dense(1, activation="relu", input_shape=input_shape),
+                layers.Dense(categories_count, activation="softmax", name="output")
             ]
         )
-
+        self.model.build(input_shape)
         pass
     
     def _compile_model(self):
@@ -41,12 +45,12 @@ class RandomModel(Model):
     @staticmethod
     def _randomize_layers(model):
         # Your code goes here
-        rand = random.randint(1, 10)
+        # Not sure how to make this run?
+        rand = random.randint(0, 10)
         rand_pm = random.randint(0, 1)
         weights = model.get_weights()
         for weight in weights: 
-            if rand_pm == 1:
-                model.set_weights(weight + rand)
+            model.set_weights(weight + rand)
         # you can write a function here to set the weights to a random value
         # use this function in _define_model to randomize the weights of your loaded model
         pass
